@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>INDUS AI</title>
+<style>body{font-family:Arial;background:#0f172a;color:#fff;padding:30px}button{padding:10px}#out{margin-top:20px;background:#1e293b;padding:15px;border-radius:10px}</style></head>
+<body>
+<h1>INDUS AI - Full Stack MVP</h1>
+<input id="f" placeholder="Enter file name (e.g. SOP.pdf)">
+<button onclick="go()">Analyze</button>
+<div id="out"></div>
+<script>
+async function go(){
+ const file=document.getElementById('f').value||'SOP.pdf';
+ const r=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({file})});
+ const d=await r.json();
+ document.getElementById('out').innerHTML=
+ `<b>Status:</b> ${d.status}<br><b>Planner:</b> ${d.planner}<br><b>Retriever:</b> ${d.retriever}<br><b>Vision:</b> ${d.vision}<br><b>Reasoning:</b> ${d.reasoning}<br><b>Report:</b> ${d.report}`;
+}
+</script></body></html>
